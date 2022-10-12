@@ -43,5 +43,5 @@ class TruckDriverRepository {
     await db.delete('truck_driver', where: 'id = ?', whereArgs: [id]);
   }
 
-  //editar caminhoneiro
+  //editar caminhoneiro]
 }
