@@ -1,11 +1,9 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
-
 import '../../components/button_component.dart';
 import '../../components/custom_scrollview_component.dart';
 import '../../components/form_outline_component.dart';
 import '../../utils/export.dart';
+import '../recomendation_page/recomendation_page.dart';
 
 class IntroPage extends StatelessWidget {
   @override
@@ -14,7 +12,7 @@ class IntroPage extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => IntroPage(),
+          builder: (context) => RecomendationPage(),
         ),
       );
     }
