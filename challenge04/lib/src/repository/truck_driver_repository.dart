@@ -1,9 +1,8 @@
-import 'dart:ffi';
 
+import 'package:challenge04/src/app/database/database_manager.dart';
 import 'package:challenge04/src/app/model/truck_driver.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../app/database/database_manager.dart';
 
 class TruckDriverRepository {
   Future<List<TruckDriver>> listarCaminhoneiros() async {
@@ -43,5 +42,19 @@ class TruckDriverRepository {
     await db.delete('truck_driver', where: 'id = ?', whereArgs: [id]);
   }
 
-  //editar caminhoneiro]
+  Future<int> editarCaminhoneiro(TruckDriver truckDriver) async {
+    final db = await DatabaseManager.instance.database;
+    return db.update(
+        'truck_driver',
+        {
+          "id": truckDriver.id,
+          'idade': truckDriver.idade,
+          'sexo': truckDriver.sexo,
+          'cep': truckDriver.cep,
+          'veiculo': truckDriver.veiculo,
+          'empresaAtual': truckDriver.empresaAtual
+        },
+        where: 'id = ?',
+        whereArgs: [truckDriver.id]);
+  }
 }

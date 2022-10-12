@@ -12,6 +12,11 @@ class DatabaseManager {
     return await _initDatabase();
   }
 
+  Future<Database> getDatabase() async {
+    final path = join(await getDatabasesPath(), 'truck_driver.db');
+    return openDatabase(path, version: 1);
+  }
+
   _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'truck_driver.db'),
