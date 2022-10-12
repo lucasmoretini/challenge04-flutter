@@ -10,8 +10,8 @@ ThemeData lightTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 18),
-      primary: Colors.white,
-      onPrimary: Colors.black,
+      primary: Colors.purple,
+      onPrimary: Colors.white,
       minimumSize: const Size(kIsWeb ? 80 : double.infinity, 48),
     ),
   ),
