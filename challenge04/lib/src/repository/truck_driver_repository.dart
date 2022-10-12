@@ -16,6 +16,7 @@ class TruckDriverRepository {
         .map(
           (row) => TruckDriver(
               id: row['id'] as int,
+              nome: row['nome'],
               idade: int.parse(row['idade'].toString()),
               sexo: row['sexo'],
               cep: row['cep'],
@@ -29,6 +30,7 @@ class TruckDriverRepository {
   Future<int> cadastrarCaminhoneiro(TruckDriver truckDriver) async {
     Database db = await DatabaseManager().getDatabase();
     return db.insert('truck_driver', {
+      'nome': truckDriver.nome,
       'idade': truckDriver.idade,
       'sexo': truckDriver.sexo,
       'cep': truckDriver.cep,
@@ -48,6 +50,7 @@ class TruckDriverRepository {
         'truck_driver',
         {
           "id": truckDriver.id,
+          'nome': truckDriver.nome,
           'idade': truckDriver.idade,
           'sexo': truckDriver.sexo,
           'cep': truckDriver.cep,

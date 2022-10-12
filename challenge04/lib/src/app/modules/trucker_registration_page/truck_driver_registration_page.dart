@@ -33,6 +33,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
     );
   }
 
+  String? _nome;
   int? _idade;
   String? _note;
   String? _sexo;
@@ -70,6 +71,18 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
           child: ListView(
             children: [
               TitlePattern(titleText: 'Qual o perfil do seu caminhoneiro?'),
+              TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Qual o nome do seu caminhoneiro?',
+                    labelText: 'Nome',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Digite o nome do motorista';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _nome = value!),
               TextFormField(
                   decoration: const InputDecoration(
                     hintText: 'Qual o veículo do seu caminhoneiro?',
@@ -147,6 +160,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   if (form!.validate()) {
                     form.save();
                     TruckDriver driver = TruckDriver(
+                      nome: _nome!,
                       idade: _idade!,
                       sexo: _sexo!,
                       cep: _cep!,

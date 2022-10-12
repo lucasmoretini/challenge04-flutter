@@ -2,6 +2,7 @@
 
 class TruckDriver{
   int? id;
+  String nome;
   int idade;
   String sexo;
   String cep;
@@ -10,6 +11,7 @@ class TruckDriver{
 
   TruckDriver({
     this.id,
+    required this.nome,
     required this.idade,
     required this.sexo,
     required this.cep,
