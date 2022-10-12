@@ -167,6 +167,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                       veiculo: _veiculo!,
                       empresaAtual: _empresa!);
                     repository.cadastrarCaminhoneiro(driver);
+                    navigateToRecomendationPage();
                   }
                 },
                 buttonText: 'Cadastrar')

@@ -15,12 +15,12 @@ class DatabaseManager {
   String get _truckDriver => '''
     CREATE TABLE IF NOT EXISTS truck_driver (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT
+        nome TEXT,
         idade INTEGER,
         sexo TEXT,
         cep TEXT,
         veiculo TEXT,
-        empresaAtual TEXT,
+        empresaAtual TEXT
       );
   ''';
 }

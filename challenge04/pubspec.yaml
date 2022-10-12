@@ -37,6 +37,7 @@ dependencies:
   sqflite: ^2.0.3+1
   select_form_field: "^2.2.0"
   masked_text: ^1.1.2
+  flutter_slidable: ^2.0.0
 
 dev_dependencies:
   flutter_test:
