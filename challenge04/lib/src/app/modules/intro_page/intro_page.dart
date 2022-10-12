@@ -33,9 +33,7 @@ class IntroPage extends StatelessWidget {
             const SizedBox(height: 30),
             ButtonPattern(
               onPressed: navigateToSpaceShipScreen,
-              buttonText: entry,
-              primaryColor: const Color.fromARGB(255, 101, 2, 194),
-              secondColor: Colors.white,
+              buttonText: entry
             )
           ],
         ),

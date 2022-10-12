@@ -39,16 +39,12 @@ class RecomendationPage extends StatelessWidget{
             const SizedBox(height: 15),
             ButtonPattern(
               onPressed: navigateToTruckRegistration,
-              buttonText: registrationButton,
-              primaryColor: const Color.fromARGB(255, 101, 2, 194),
-              secondColor: Colors.white,
+              buttonText: registrationButton
             ),
             const SizedBox(height: 10),
              ButtonPattern(
               onPressed: navigateToTruckList,
-              buttonText: listDriveTruckButton,
-              primaryColor: const Color.fromARGB(255, 101, 2, 194),
-              secondColor: Colors.white,
+              buttonText: listDriveTruckButton
             ),
           ],
         ),
