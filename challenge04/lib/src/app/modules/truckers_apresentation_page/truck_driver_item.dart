@@ -9,11 +9,11 @@ class TruckDriverItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         radius: 30,
         backgroundColor: Colors.purple,
         child: Icon(
-          Icons.person,
+          motorista.sexo == "M" ? Icons.man_rounded : Icons.woman_rounded,
           size: 25,
           color: Colors.white,
         ),

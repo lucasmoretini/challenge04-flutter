@@ -9,6 +9,7 @@ import 'package:select_form_field/select_form_field.dart';
 import '../../components/button_component.dart';
 import '../../components/title_component.dart';
 import '../recomendation_page/recomendation_page.dart';
+import '../truckers_apresentation_page/truck_driver_apresentation_page.dart';
 
 class TruckDriverRegistration extends StatefulWidget {
   const TruckDriverRegistration({
@@ -24,18 +25,17 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TruckDriverRepository repository = TruckDriverRepository();
 
-  navigateToRecomendationPage() {
+  navigateToApresentationPage() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => RecomendationPage(),
+        builder: (context) => const TruckDriverApresentation(),
       ),
     );
   }
 
   String? _nome;
   int? _idade;
-  String? _note;
   String? _sexo;
   String? _cep;
   String? _veiculo;
@@ -61,7 +61,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
         title: const Text('Scania'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: navigateToRecomendationPage,
+          onPressed: navigateToApresentationPage,
         ),
       ),
       body: Padding(
@@ -167,7 +167,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                       veiculo: _veiculo!,
                       empresaAtual: _empresa!);
                     repository.cadastrarCaminhoneiro(driver);
-                    navigateToRecomendationPage();
+                    navigateToApresentationPage();
                   }
                 },
                 buttonText: 'Cadastrar')
