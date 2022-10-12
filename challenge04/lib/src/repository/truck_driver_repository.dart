@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 class TruckDriverRepository {
   Future<List<TruckDriver>> listarCaminhoneiros() async {
-    Database db = await DatabaseManager.instance.database;
+    Database db = await DatabaseManager().getDatabase();
     List rows = await db.rawQuery('''
           SELECT 
             *
@@ -27,7 +27,7 @@ class TruckDriverRepository {
   }
 
   Future<int> cadastrarCaminhoneiro(TruckDriver truckDriver) async {
-    Database db = await DatabaseManager.instance.database;
+    Database db = await DatabaseManager().getDatabase();
     return db.insert('truck_driver', {
       'idade': truckDriver.idade,
       'sexo': truckDriver.sexo,
@@ -38,12 +38,12 @@ class TruckDriverRepository {
   }
 
   Future<void> removerCaminhoneiro(int? id) async {
-    Database db = await DatabaseManager.instance.database;
+    Database db = await DatabaseManager().getDatabase();
     await db.delete('truck_driver', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> editarCaminhoneiro(TruckDriver truckDriver) async {
-    final db = await DatabaseManager.instance.database;
+    Database db = await DatabaseManager().getDatabase();
     return db.update(
         'truck_driver',
         {
