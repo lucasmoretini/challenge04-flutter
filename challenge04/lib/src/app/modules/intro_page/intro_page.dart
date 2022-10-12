@@ -8,7 +8,7 @@ import '../recomendation_page/recomendation_page.dart';
 class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    navigateToSpaceShipScreen() {
+    navigateToRecomendationPage() {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -32,7 +32,7 @@ class IntroPage extends StatelessWidget {
             FormOutlinePattern(label: password),
             const SizedBox(height: 30),
             ButtonPattern(
-              onPressed: navigateToSpaceShipScreen,
+              onPressed: navigateToRecomendationPage,
               buttonText: entry
             )
           ],
