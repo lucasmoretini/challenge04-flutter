@@ -12,21 +12,15 @@ class TitlePattern extends StatelessWidget {
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: Colors.purple,
-            border: Border.all(
-              color: Colors.purple,
-              width: 5
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(20))
-          ),
           height: 130,
           width: 350,
           child: Text(
             titleText,
-            style: TextStyle(
-              fontSize: 28,
-              color: Colors.white
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
             ),
           )
         )

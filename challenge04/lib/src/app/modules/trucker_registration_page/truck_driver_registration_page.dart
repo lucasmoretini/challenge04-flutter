@@ -64,7 +64,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Form(
           key: formKey,
           child: ListView(
