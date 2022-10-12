@@ -20,8 +20,8 @@ class TitlePattern extends StatelessWidget {
             ),
             borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
-          height: 80,
-          width: 290,
+          height: 130,
+          width: 350,
           child: Text(
             titleText,
             style: TextStyle(

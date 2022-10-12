@@ -69,11 +69,10 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
           key: formKey,
           child: ListView(
             children: [
-              TitlePattern(titleText: 'Qual o seu perfil?'),
+              TitlePattern(titleText: 'Qual o perfil do seu caminhoneiro?'),
               TextFormField(
-                  autofocus: true,
                   decoration: const InputDecoration(
-                    hintText: 'Qual o veículo você dirige?',
+                    hintText: 'Qual o veículo do seu caminhoneiro?',
                     labelText: 'Veículo',
                   ),
                   validator: (value) {
@@ -84,9 +83,8 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _veiculo = value!),
               TextFormField(
-                  autofocus: true,
                   decoration: const InputDecoration(
-                      hintText: 'Qual empresa você trabalha?',
+                      hintText: 'Qual empresa o caminhoneiro trabalha?',
                       labelText: 'Empresa'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -96,9 +94,8 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _empresa = value!),
               TextFormField(
-                  autofocus: true,
                   decoration: const InputDecoration(
-                      hintText: 'Qual a sua idade?', labelText: 'Idade'),
+                      hintText: 'Qual a idade?', labelText: 'Idade'),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
@@ -142,23 +139,23 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                 onSaved: (value) => _cep = value!,
               ),
               const SizedBox(
-                height: 150,
+                height: 80,
               ),
               ButtonPattern(
-                  onPressed: () {
-                    final form = formKey.currentState;
-                    if (form!.validate()) {
-                      form.save();
-                      TruckDriver driver = TruckDriver(
-                          idade: _idade!,
-                          sexo: _sexo!,
-                          cep: _cep!,
-                          veiculo: _veiculo!,
-                          empresaAtual: _empresa!);
-                      repository.cadastrarCaminhoneiro(driver);
-                    }
-                  },
-                  buttonText: 'Cadastrar')
+                onPressed: () {
+                  final form = formKey.currentState;
+                  if (form!.validate()) {
+                    form.save();
+                    TruckDriver driver = TruckDriver(
+                      idade: _idade!,
+                      sexo: _sexo!,
+                      cep: _cep!,
+                      veiculo: _veiculo!,
+                      empresaAtual: _empresa!);
+                    repository.cadastrarCaminhoneiro(driver);
+                  }
+                },
+                buttonText: 'Cadastrar')
             ],
           ),
         ),
