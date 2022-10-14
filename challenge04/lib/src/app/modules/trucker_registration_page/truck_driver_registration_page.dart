@@ -12,18 +12,23 @@ import '../recomendation_page/recomendation_page.dart';
 import '../truckers_apresentation_page/truck_driver_apresentation_page.dart';
 
 class TruckDriverRegistration extends StatefulWidget {
-  const TruckDriverRegistration({
-    Key? key,
-  }) : super(key: key);
+  TruckDriver? motoristaParaEdicao;
+  TruckDriverRegistration({ Key? key, this.motoristaParaEdicao}) : super(key: key);
 
   @override
-  _TruckDriverRegistrationState createState() =>
-      _TruckDriverRegistrationState();
+  State<TruckDriverRegistration> createState() => _TruckDriverRegistrationState();
 }
 
 class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TruckDriverRepository repository = TruckDriverRepository();
+
+  final _nomeController = TextEditingController();
+  final _idadeController = TextEditingController();
+  final _sexoController = TextEditingController();
+  final _cepController = TextEditingController();
+  final _veiculoController = TextEditingController();
+  final _empresaController = TextEditingController();
 
   navigateToApresentationPage() {
     Navigator.pushReplacement(
@@ -32,6 +37,31 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
         builder: (context) => const TruckDriverApresentation(),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final motorista = widget.motoristaParaEdicao;
+    if (motorista != null) {
+      _nomeController.text = motorista.nome;
+      _idadeController.text = motorista.idade.toString();
+      _sexoController.text  = motorista.sexo;
+      _cepController.text  = motorista.cep;
+      _veiculoController.text  = motorista.veiculo;
+      _empresaController.text  = motorista.empresaAtual;
+    }
+
+    carregarMotoristas();
+  }
+
+  Future<void> carregarMotoristas() async {
+    final categorias = await repository.listarCaminhoneiros();
+
+    setState(() {
+      categorias.toList();
+    });
   }
 
   String? _nome;
@@ -72,6 +102,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
             children: [
               TitlePattern(titleText: 'Qual o perfil do seu caminhoneiro?'),
               TextFormField(
+                  controller: _nomeController,
                   decoration: const InputDecoration(
                     hintText: 'Qual o nome do seu caminhoneiro?',
                     labelText: 'Nome',
@@ -84,6 +115,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _nome = value!),
               TextFormField(
+                  controller: _veiculoController,
                   decoration: const InputDecoration(
                     hintText: 'Qual o veículo do seu caminhoneiro?',
                     labelText: 'Veículo',
@@ -96,6 +128,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _veiculo = value!),
               TextFormField(
+                  controller: _empresaController,
                   decoration: const InputDecoration(
                       hintText: 'Qual empresa o caminhoneiro trabalha?',
                       labelText: 'Empresa'),
@@ -107,6 +140,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _empresa = value!),
               TextFormField(
+                  controller: _idadeController,
                   decoration: const InputDecoration(
                       hintText: 'Qual a idade?', labelText: 'Idade'),
                   keyboardType: TextInputType.number,
@@ -124,6 +158,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   },
                   onSaved: (value) => _idade = int.parse(value!)),
               SelectFormField(
+                controller: _sexoController,
                 hintText: 'Qual o seu sexo?',
                 labelText: 'Sexo',
                 items: sexos,
@@ -136,6 +171,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                 },
               ),
               MaskedTextField(
+                controller: _cepController,
                 mask: "#####-###",
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
@@ -155,22 +191,43 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                 height: 80,
               ),
               ButtonPattern(
-                onPressed: () {
-                  final form = formKey.currentState;
-                  if (form!.validate()) {
-                    form.save();
-                    TruckDriver driver = TruckDriver(
-                      nome: _nome!,
-                      idade: _idade!,
-                      sexo: _sexo!,
-                      cep: _cep!,
-                      veiculo: _veiculo!,
-                      empresaAtual: _empresa!);
-                    repository.cadastrarCaminhoneiro(driver);
-                    navigateToApresentationPage();
+                onPressed: () async {
+                  final isValid = formKey.currentState!.validate();
+                  if (isValid) {
+
+                    TruckDriver truckdriver = TruckDriver(
+                      nome: _nomeController.text,
+                      idade: int.parse(_idadeController.text),
+                      sexo: _sexoController.text,
+                      cep: _cepController.text,
+                      veiculo: _veiculoController.text,
+                      empresaAtual: _empresaController.text
+                    );
+
+                    var isUpdate = true;
+                    try {
+                      if (widget.motoristaParaEdicao != null) {
+                        truckdriver.id = widget.motoristaParaEdicao!.id;
+                        await repository.editarCaminhoneiro(truckdriver);
+                      } else {
+                        isUpdate = false;
+                        await repository.cadastrarCaminhoneiro(truckdriver);
+                      }
+                    
+                      var message = isUpdate ? 
+                                    'funcionário atualizado com sucesso' :
+                                    "funcionário cadastrado com sucesso";
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(message),
+                      ));
+
+                    Navigator.of(context).pop(true);
+                    }catch (e) {
+                      Navigator.of(context).pop(false);
+                    }
                   }
                 },
-                buttonText: 'Cadastrar')
+                buttonText: 'Salvar')
             ],
           ),
         ),

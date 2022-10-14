@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../recomendation_page/recomendation_page.dart';
+import '../trucker_registration_page/truck_driver_registration_page.dart';
 
 class TruckDriverApresentation extends StatefulWidget {
   const TruckDriverApresentation({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class TruckDriverApresentation extends StatefulWidget {
 }
 
 class _TruckDriverApresentationState extends State<TruckDriverApresentation> {
-  var _futureMotoristas = TruckDriverRepository().listarCaminhoneiros();
+  final _motoristaRepository = TruckDriverRepository();
+  late Future<List<TruckDriver>> _futureMotoristas;
 
   navigateToRecomendationPage() {
     Navigator.pushReplacement(
@@ -24,6 +26,16 @@ class _TruckDriverApresentationState extends State<TruckDriverApresentation> {
         builder: (context) => RecomendationPage(),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    carregarMotoristas();
+    super.initState();
+  }
+
+  void carregarMotoristas() {
+    _futureMotoristas = _motoristaRepository.listarCaminhoneiros();
   }
 
   @override
@@ -66,7 +78,29 @@ class _TruckDriverApresentationState extends State<TruckDriverApresentation> {
                         foregroundColor: Colors.white,
                         icon: Icons.delete,
                         label: 'Remover',
-                      )
+                      ),
+                      SlidableAction(
+                        onPressed: (context) async {
+                          var success = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  TruckDriverRegistration(
+                                motoristaParaEdicao: motorista,
+                              ),
+                            ),
+                          ) as bool?;
+
+                          if (success != null && success) {
+                            setState(() {
+                              carregarMotoristas();
+                            });
+                          }
+                        },
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        icon: Icons.edit,
+                        label: 'Editar',
+                      ),
                     ],
                   ),
                   child: TruckDriverItem(motorista: motorista),

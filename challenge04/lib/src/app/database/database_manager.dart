@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 class DatabaseManager {
 
   Future<Database> getDatabase() async {
-    final path = join(await getDatabasesPath(), 'truck_driver.db');
+    final path = join(await getDatabasesPath(), 'truck_driver1.db');
     return openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
