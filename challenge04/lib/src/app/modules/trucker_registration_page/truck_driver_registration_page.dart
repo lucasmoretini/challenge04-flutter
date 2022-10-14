@@ -180,7 +180,7 @@ class _TruckDriverRegistrationState extends State<TruckDriverRegistration> {
                   if (value == null || value.trim().isEmpty) {
                     return 'Digite o cep';
                   }
-                  if (value.length != 9) {
+                  if (value.replaceAll("-", " ").length != 9) {
                     return 'Digite o cep corretamente, ex: 01234-567';
                   }
                   return null;
